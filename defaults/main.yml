@@ -1,0 +1,3 @@
+---
+# Valid options are "amd64" or "arm"
+cloudflared_arch: amd64

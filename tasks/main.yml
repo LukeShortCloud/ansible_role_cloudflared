@@ -1,0 +1,42 @@
+---
+- name: Download cloudflared
+  get_url:
+    url: "https://bin.equinox.io/c/VdrWdbjqyF/cloudflared-stable-linux-{{ cloudflared_arch }}.tgz"
+    dest: /tmp/cloudflared.tgz
+
+- name: Extract the cloudflared binary
+  unarchive:
+    src: /tmp/cloudflared.tgz
+    dest: /usr/local/bin/
+    remote_src: true
+  become: true
+
+- name: Create the cloudflared configuration directory
+  file:
+    path: /etc/cloudflared
+    state: directory
+    mode: 0755
+  become: true
+
+- name: Copy the configuration file
+  copy:
+    src: config.yml
+    dest: /etc/cloudflared/
+    mode: 0644
+  become: true
+
+- name: Install cloudflared
+  command: /usr/local/bin/cloudflared service install
+  become: true
+
+- name: Start and enable cloudflared
+  service:
+    name: cloudflared
+    state: started
+    enabled: true
+  become: true
+
+- name: Remove the cloudflared archive
+  file:
+    path: /tmp/cloudflared.tgz
+    state: absent
