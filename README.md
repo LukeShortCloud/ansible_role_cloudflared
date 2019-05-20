@@ -1,6 +1,6 @@
 # ansible_role_cloudflared
 
-An Ansible role to install and configure the cloudflared service.
+An Ansible role to install and configure the cloudflared service. After setting up the `cloudflared` service, the DNS resolver `/etc/resolv.conf` needs to be manually updated to use `nameserver 127.0.0.1`.
 
 ## Requirements
 
