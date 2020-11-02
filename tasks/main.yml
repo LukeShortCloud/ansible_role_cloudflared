@@ -26,7 +26,7 @@
   become: true
 
 - name: Install cloudflared
-  command: /usr/local/bin/cloudflared service install
+  command: /usr/local/bin/cloudflared service install --legacy
   become: true
 
 - name: Start and enable cloudflared
